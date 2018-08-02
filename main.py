@@ -18,19 +18,25 @@ currentMinutes = 0;
 totalHours = 0;
 totalMinutes = 0;
 
+def printTime(hours, minutes):
+    print(str(hours) + " hours and " + str(minutes) + " minutes");
 
 def readFromArray():
     global currentHours;
     global currentMinutes;
+    global totalHours;
+    global totalMinutes;
     for i in worktime:
         a = i.split(":");
 
-        currentHours += int(a[0]);
-        currentMinutes += int(a[1]);
-        currentHours += int(currentMinutes / 60);
-        currentMinutes = int(currentMinutes % 60);
-    print(currentHours);
-    print(currentMinutes);
+        currentHours = int(a[0]);
+        currentMinutes = int(a[1]);
+        totalHours += int(currentHours);
+        totalMinutes += int(currentMinutes);
+    totalHours += int(totalMinutes / 60);
+    totalMinutes = totalMinutes % 60;
+    printTime(totalHours, totalMinutes);
+    
     
 
 def readFromInput():
