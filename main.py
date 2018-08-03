@@ -45,13 +45,16 @@ def howMany():
         try:
            hours = int(hours);
         except ValueError:
-           print("That's not an integer!")
+           print("That's not an integer!");
+           howMany();
         minutes = input("How many minutes? \n->");
+
         try:
            minutes = int(minutes);
         except ValueError:
            print("That's not an integer!")
-        
+           howMany();
+    
         hours = abs(hours);
         minutes = abs(minutes);
         return [hours,minutes];
