@@ -6,12 +6,44 @@ currentMinutes = 0;
 totalHours = 0;
 totalMinutes = 0;
 
-def printTime(hours, minutes):
-    print(str(hours) + " hours and " + str(minutes) + " minutes");
+def menu():
+    introText = "Would you like to: \n a)read from the file or \n b)read from user input?"
+    selection = input(introText + "\n->");
+    if selection == "a":
+        readFromModule();
+    elif selection == "b":
+        readFromInput();
+    else:
+        print("please type a valid answer!");
+        selection();
+
 
 def readFromModule():
     worktime = hours.user();
     readFromArray(worktime);
+
+def readFromInput():
+    global currentHours;
+    global currentMinutes;
+    global worktime;
+    global totalHours;
+    global totalMinutes;
+    done = False;
+    while done == False:
+        choiceText = "what would you like to do? \n a)input another time \n b)get the total? \n->";
+        choice = input(choiceText);
+        if choice == "a":
+            currentWorkperiod = howMany();
+            currentHours = currentWorkperiod[0];
+            currentMinutes = currentWorkperiod[1] ;
+            printTime(currentHours, currentMinutes);
+            totalHours += currentHours;
+            totalMinutes += currentMinutes;
+            timeString = str(currentWorkperiod[0]) + ":" + str(currentWorkperiod[1]);
+            worktime.append(timeString);
+            
+        if choice == "b":
+            readFromArray(worktime);
 
 def readFromArray(worktime):
     global currentHours;
@@ -41,57 +73,27 @@ def calculateTotal():
 
 
 def howMany():
-        hours = input("How many hours? \n->");
         try:
+           hours = input("How many hours? \n->");
            hours = int(hours);
         except ValueError:
            print("That's not an integer!");
-           howMany();
-        minutes = input("How many minutes? \n->");
+           return howMany();
 
         try:
+           minutes = input("How many minutes? \n->");
            minutes = int(minutes);
         except ValueError:
-           print("That's not an integer!")
-           howMany();
+           print("That's not an integer!");
+           return howMany();
     
         hours = abs(hours);
         minutes = abs(minutes);
         return [hours,minutes];
 
-def readFromInput():
-    global currentHours;
-    global currentMinutes;
-    global worktime;
-    global totalHours;
-    global totalMinutes;
-    done = False;
-    while done == False:
-        choiceText = "what would you like to do? \n a)input another time \n b)get the total? \n->";
-        choice = input(choiceText);
-        if choice == "a":
-            currentWorkperiod = howMany();
-            currentHours = currentWorkperiod[0];
-            currentMinutes = currentWorkperiod[1] ;
-            printTime(currentHours, currentMinutes);
-            totalHours += currentHours;
-            totalMinutes += currentMinutes;
-            timeString = str(currentWorkperiod[0]) + ":" + str(currentWorkperiod[1]);
-            worktime.append(timeString);
-            
-        if choice == "b":
-            readFromArray(worktime);
+def printTime(hours, minutes):
+    print(str(hours) + " hours and " + str(minutes) + " minutes");
 
-def menu():
-    introText = "Would you like to: \n a)read from the file or \n b)read from user input?"
-    selection = input(introText + "\n->");
-    if selection == "a":
-        readFromModule();
-    elif selection == "b":
-        readFromInput();
-    else:
-        print("please type a valid answer!");
-        selection();
     
 
 if __name__ == "__main__":
