@@ -18,6 +18,9 @@ def readFromArray(worktime):
     global currentMinutes;
     global totalHours;
     global totalMinutes;
+    totalHours = 0;
+    totalMinutes = 0;
+    print(worktime);
     for i in worktime:
         a = i.split(":");
         currentHours = int(a[0]);
@@ -27,8 +30,9 @@ def readFromArray(worktime):
         printTime(currentHours, currentMinutes);
     print("------------------------------------------");
     print("TOTAL:");
+    calculateTotal();
 
-def calculateTotal:
+def calculateTotal():
     global totalHours;
     global totalMinutes;
     totalHours += int(totalMinutes / 60);
@@ -36,11 +40,44 @@ def calculateTotal:
     printTime(totalHours, totalMinutes);
 
 
-    
+def howMany():
+        hours = input("How many hours? \n->");
+        try:
+           hours = int(hours);
+        except ValueError:
+           print("That's not an integer!")
+        minutes = input("How many minutes? \n->");
+        try:
+           minutes = int(minutes);
+        except ValueError:
+           print("That's not an integer!")
+        
+        hours = abs(hours);
+        minutes = abs(minutes);
+        return [hours,minutes];
 
 def readFromInput():
-    print("user Input coming soon!");
-    pass;
+    global currentHours;
+    global currentMinutes;
+    global worktime;
+    global totalHours;
+    global totalMinutes;
+    done = False;
+    while done == False:
+        choiceText = "what would you like to do? \n a)input another time \n b)get the total? \n->";
+        choice = input(choiceText);
+        if choice == "a":
+            currentWorkperiod = howMany();
+            currentHours = currentWorkperiod[0];
+            currentMinutes = currentWorkperiod[1] ;
+            printTime(currentHours, currentMinutes);
+            totalHours += currentHours;
+            totalMinutes += currentMinutes;
+            timeString = str(currentWorkperiod[0]) + ":" + str(currentWorkperiod[1]);
+            worktime.append(timeString);
+            
+        if choice == "b":
+            readFromArray(worktime);
 
 def menu():
     introText = "Would you like to: \n a)read from the file or \n b)read from user input?"
